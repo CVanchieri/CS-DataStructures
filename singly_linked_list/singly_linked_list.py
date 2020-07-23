@@ -1,48 +1,46 @@
+# node class
 class Node:
     def __init__(self, value=None, next_node=None):
-        # the value at this linked list node
-        self.value = value
-        # reference to the next node in the list
-        self.next_node = next_node
+        self.value = value # the value at this linked list node
+        self.next_node = next_node # reference to the next node in the list
 
-    def get_value(self): # get current value
+    def get_value(self): # get current value method
         return self.value
 
     def get_next(self): # get next node method
         return self.next_node
 
     def set_next(self, new_next): # set next node method
-        # set this node's next_node reference to the passed in node
         self.next_node = new_next
 
+# LinkedList class
 class LinkedList:
-    def __init__ (self):
-        self.head = None # unique to empty list, change if known
-        self.tail = None # unique to empty list, change if known
-        self.length = 0 # unique to empty list, change if known
+    def __init__ (self): # initialize constructor
+        self.head = None
+        self.tail = None
+        self.length = 
 
-    def add_to_head(self, value):
-        new_node = Node(value, self.head) # new node attribute
-        self.head = new_node # set the new node ad the head
-        if self.length == 0: # or, if self.head is None and self.tail is None
+    def add_to_head(self, value): # add value to the head
+        new_node = Node(value, self.head)
+        self.head = new_node
+        if self.length == 0:
             self.tail = new_node
         self.length += 1
 
-    def add_to_tail(self, value):
-        new_node = Node(value) # new node attribute
+    def add_to_tail(self, value): # add value to the tail
+        new_node = Node(value)
         if self.head is None and self.tail is None:
             self.head = new_node
-
         else:
             self.tail.set_next(new_node)
-        self.tail = new_node
+        self.tail = new_node #
         self.length += 1
 
-    def remove_head(self):
+    def remove_head(self): # remove the head value
         if self.head is None:
             return None
 
-        elif self.head == self.tail: # if list is empty cant remove.
+        elif self.head == self.tail:
             value = self.head.get_value()
             self.head = None
             self.tail = None
@@ -55,11 +53,11 @@ class LinkedList:
             self.length -= 1
             return value
 
-    def remove_tail(self):
+    def remove_tail(self): # remove the tail value
         if self.tail is None:
             return None
 
-        elif self.tail == self.head: # if list is empty cant remove.
+        elif self.tail == self.head:
             value = self.tail.get_value()
             self.head = None
             self.tail = None
@@ -72,7 +70,7 @@ class LinkedList:
             self.length -= 1
             return value
 
-    def contains(self, value):
+    def contains(self, value): # does the list contain value
         if self.head is None:
             return False
 
@@ -84,7 +82,7 @@ class LinkedList:
             current_node = current_node.next_node
         return False
 
-    def get_max(self):
+    def get_max(self): # get max value
         if self.head is None:
             return None
 
