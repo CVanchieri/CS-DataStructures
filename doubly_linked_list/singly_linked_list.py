@@ -23,7 +23,6 @@ class LinkedList:
     def get_length(self): # get current value method
         return self.length
 
-
     def add_to_head(self, value): # add value to the head
         new_node = Node(value, self.head)
         self.head = new_node
@@ -73,7 +72,7 @@ class LinkedList:
             self.tail = self.tail.get_next()
             self.length -= 1
             return value
-            ''' option
+            ''' option, while loop is not good runtime
             cur_node = self.head
             while cur_node.get_next() is not self.tail:
                 cur_node = cur_node.get_next()
@@ -106,3 +105,29 @@ class LinkedList:
                 cur_max = cur_node.value
             cur_node = cur_node.get_next()
         return cur_max
+
+    def get_Middle(self): # get middle value method # big (O)n run time
+        mid = self.head
+        end = self.head
+        if self.head is not None:
+            while (end is not None and end.get_next() is not None):
+                end = end.get_next().get_next()
+                mid = mid.get_next()
+            print("The middle element is: ", mid.value)
+
+    def get_Middle2(self):
+        temp = self.head
+        count = 0
+        while self.head:
+            if (count & 1): # only update when count is odd
+                temp = temp.get_next()
+            self.head = self.head.get_next()
+            count += 1 # increment count in each iteration
+        print(temp.data)
+
+ll = LinkedList()
+ll.add_to_tail(1)
+ll.add_to_tail(2)
+ll.add_to_tail(3)
+ll.add_to_tail(4)
+print(ll.get_Middle())
