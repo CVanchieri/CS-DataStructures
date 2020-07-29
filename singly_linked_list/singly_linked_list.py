@@ -104,3 +104,18 @@ class LinkedList: # linked list class
                 max = cur.value # set max to the new cur value
             cur = cur.get_next() # set the cur value to the next value
         return max
+
+
+    def reverse(self): # method to get the max value
+        cur_node = self.head # set the cur_node as the head
+        next_node = cur_node.next # set the next_node as the cur_node next
+        cur_node.set_next(None) # head points to None
+        self.head = cur_node # set the head as the cur_node
+
+        while next_node is not None: # while loop if not empty
+            pre_node = cur_node # set pre_node node as cur_node
+            cur_node = next_node # set cur_node as next_node
+            next_node = cur_node.get_next() # set next_node as the cur_node next with get_next method
+            cur_node.set_next(pre_node) # set the cur_node as pre_node with the set_next method
+
+        self.tail = cur_node
