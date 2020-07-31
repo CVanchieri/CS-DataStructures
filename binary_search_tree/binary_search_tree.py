@@ -8,6 +8,8 @@ This part of the project comprises two days:
 2. Implement the `in_order_print`, `bft_print`, and `dft_print` methods
    on the BSTNode class.
 """
+from queue import Queue
+
 class BSTNode: # BSTNode class
     def __init__(self, value): # initializer constructor method
         self.value = value # set value to the value
@@ -50,28 +52,67 @@ class BSTNode: # BSTNode class
 
     # Call the function `fn` on the value of each node
     def for_each(self, fn): # method to call a function on each value
-        if self.left: # if self.left
+        if self.left: # if self.left, or if self.left is None:
             self.left.for_each(fn) # use the fn function on self.left with the for_each method
         fn(self.value) # use the fn function on self.value
         if self.right: # if self.right
             self.right.for_each(fn) # use the fn function on self.right with the for_each method
 
+    # Delete a value from the tree
+    def delete(self): # method to delete a value
+        # search like we did in contains() method
+        # different cases
+        # if node at bottom level
+            # update parent lef or right to = None
+        # if node has only one child
+            # udate parent.left or right to = node.left or right
+        # if node has 2 children
+            # 'larger' child becomes the parent of its sibling
+        pass
+
     # Part 2 -----------------------
 
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
-    def in_order_print(self):
-        pass
+    ''' not working yet '''
+    def in_order_print(self): # method to print tree in value order
+        if self: # if self is not None
+            if self.left: # if self.left is not None
+                # make left child root of tree
+                self.left.in_order_print() # set self.left with in_order_print method
+            print(self.value)
+            # if there is a right child
+            if self.right: # if self.right is not None
+                return self.right.in_order_print() # set self.right with in_order_print method
+            print(self.value)
 
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
-    def bft_print(self):
-        pass
+    def bft_print(self): # method to print iterative breadth first traversal approach
+        q = Queue() # set the Queue
+        q.enqueue(self) # insert the value
+        while q.size > 0: # while loop if length is > 0
+            front = q.dequeue() # remove from top
+            print(front.value)
+
+            if front.left: # if self.left is not None
+                # add left child to queue
+                q.enqueue(front.left) # insert value to queue
+
+            if front.right: # if self.right is not None
+                q.enqueue(front.right) # insert value to queue
 
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
-    def dft_print(self):
-        pass
+    def dft_print(self): # method to print iterative depth first traversal approach
+        if self: # if self is not None
+            print(self.value)
+
+        if self.left: # if self.left is not None
+            self.left.dft_print() # set self.left with dft_print method
+
+        if self.right:# if self.right is not None
+            self.right.dft_print() # set self.left with dft_print method
 
     # Stretch Goals -------------------------
     # Note: Research may be required
@@ -84,12 +125,10 @@ class BSTNode: # BSTNode class
     def post_order_dft(self):
         pass
 
-
 """
 This code is necessary for testing the `print` methods
 """
 bst = BSTNode(1)
-
 bst.insert(8)
 bst.insert(5)
 bst.insert(7)
@@ -97,14 +136,9 @@ bst.insert(6)
 bst.insert(3)
 bst.insert(4)
 bst.insert(2)
-
-bst.bft_print()
-bst.dft_print()
-
-print("elegant methods")
-print("pre order")
-bst.pre_order_dft()
-print("in order")
+print("in_order_print")
 bst.in_order_print()
-print("post order")
-bst.post_order_dft()
+print("bft_print:")
+bst.bft_print()
+print("dft_print")
+bst.dft_print()
